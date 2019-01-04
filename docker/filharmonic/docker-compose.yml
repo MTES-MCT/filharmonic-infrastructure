@@ -4,6 +4,8 @@ services:
   ui:
     image: betagouv/filharmonic-ui:latest
     restart: unless-stopped
+    environment:
+      - SENTRY_URL=https://b88000f087974028a3be1a5000c109e4@sentry.io/1364322
     networks:
       - web
       - filharmonic
