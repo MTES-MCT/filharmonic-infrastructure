@@ -3,6 +3,7 @@
     - name: "List modules"
       command: "ls ../modules"
       register: modulesRaw
+      changed_when: false
 
     - name: "List before hooks"
       stat:
