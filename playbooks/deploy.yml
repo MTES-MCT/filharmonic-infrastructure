@@ -1,0 +1,62 @@
+- hosts: localhost
+  tasks:
+    - name: "List modules"
+      command: "ls ../modules"
+      register: modulesRaw
+
+    - name: "List before hooks"
+      stat:
+        path: ../modules/{{ item }}/before.yml
+      loop: "{{ modulesRaw.stdout_lines }}"
+      register: modulesHooksRaw
+
+    - name: "Assemble the modules variable"
+      set_fact:
+        modules: "{{ modules | default([]) + [dict(name=item[0], beforeHook=item[1])] }}"
+      loop: "{{ modulesRaw.stdout_lines | zip(modulesHooksRaw.results | map(attribute='stat.exists')) | list }}"
+    
+- hosts: server
+  tasks:
+    - import_tasks: tasks/install-docker.yml
+
+    - name: "Create parent folders"
+      file:
+        path: "{{ item }}"
+        state: directory
+        mode: 600
+      loop:
+        - /srv/config
+        - /srv/data
+
+    - name: "Fetch modules variables"
+      set_fact:
+        modules: "{{ hostvars['localhost']['modules'] }}"
+
+    - name: "Synchronize modules configurations"
+      synchronize:
+        src: ../modules/{{ item.name }}/config/
+        dest: /srv/config/{{ item.name }}/
+        checksum: true
+        delete: true
+      loop: "{{ modules }}"
+      register: synchronizations
+
+    - name: "Create data folders"
+      file:
+        path: "/srv/data/{{ item.name }}"
+        state: directory
+        mode: 600
+      loop: "{{ modules }}"
+      
+    - name: "Run before hooks"
+      include_tasks: ../modules/{{ item.name }}/before.yml
+      when: item.beforeHook
+      loop: "{{ modules }}"
+
+    - name: "Restart modules"
+      shell: |
+        cd "/srv/config/{{ item.item.name }}"
+        docker-compose stop
+        docker-compose up -d
+      when: item.changed
+      loop: "{{ synchronizations.results }}"
