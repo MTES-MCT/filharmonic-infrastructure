@@ -12,6 +12,8 @@ if [[ -z "$SSH_PRIVATE_KEY" ]]; then
   exit 1
 fi
 
+mkdir ~/.ssh
+chown 700 ~/.ssh
 eval $(ssh-agent -s) > /dev/null
 echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - 2> /dev/null
 echo "$SERVER_FINGERPRINT" >> ~/.ssh/known_hosts
