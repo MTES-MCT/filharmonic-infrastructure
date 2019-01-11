@@ -4,6 +4,9 @@ if [[ -z "$SERVER_FINGERPRINT" ]]; then
   echo "Missing environment variable SERVER_FINGERPRINT"
   exit 1
 fi
+if [[ -n "$SSH_PRIVATE_KEY_BASE64" ]]; then
+  export SSH_PRIVATE_KEY=$(echo $SSH_PRIVATE_KEY_BASE64 | base64 --decode)
+fi
 if [[ -z "$SSH_PRIVATE_KEY" ]]; then
   echo "Missing environment variable SSH_PRIVATE_KEY"
   exit 1
