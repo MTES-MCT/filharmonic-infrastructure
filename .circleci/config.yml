@@ -1,0 +1,17 @@
+version: 2.1
+
+jobs:
+  deploy:
+    docker:
+      - image: willhallonline/ansible:2.7-alpine
+    steps:
+      - checkout
+      - run:
+          name: Deploy
+          command: ./deploy.sh
+
+workflows:
+  deploy:
+    jobs:
+      - deploy:
+          requires: []
