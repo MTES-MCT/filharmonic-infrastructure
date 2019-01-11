@@ -17,6 +17,6 @@ L'idée est d'installer le moins de paquets possibles sur le serveur et d'utilis
 ## Prérequis serveur
 
 - Debian 9
-- rsync (installed manuellement)
+- rsync (installé manuellement)
 
 
