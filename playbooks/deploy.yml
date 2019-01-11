@@ -38,6 +38,7 @@
         src: ../modules/{{ item.name }}/config/
         dest: /srv/config/{{ item.name }}/
         checksum: true
+        times: false
         delete: true
       loop: "{{ modules }}"
       register: synchronizations
