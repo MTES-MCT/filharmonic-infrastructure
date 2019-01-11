@@ -20,3 +20,10 @@ L'idée est d'installer le moins de paquets possibles sur le serveur et d'utilis
 - rsync (installé manuellement)
 
 
+## Configuration CircleCI
+
+Dans CircleCI :
+- Créer le projet filharmonic-infrastructure
+- Ajouter les variables d'environnement (via Settings > Environment Variables) :
+  - SERVER_FINGERPRINT
+  - SSH_PRIVATE_KEY_BASE64
