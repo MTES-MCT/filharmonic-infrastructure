@@ -1,5 +1,14 @@
 #!/bin/sh -e
 
+playbook=$1
+if [[ -z "$playbook" ]]; then
+  echo "Missing playbook argument"
+  exit 1
+fi
+if [[ ! -e playbooks/"$playbook".yml ]]; then
+  echo "Playbook $playbook does not exist in /playbooks"
+  exit 1
+fi
 if [[ -z "$SERVER_FINGERPRINT" ]]; then
   echo "Missing environment variable SERVER_FINGERPRINT"
   exit 1
@@ -18,4 +27,4 @@ eval $(ssh-agent -s) > /dev/null
 echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - 2> /dev/null
 echo "$SERVER_FINGERPRINT" >> ~/.ssh/known_hosts
 
-ansible-playbook playbooks/deploy.yml
+ansible-playbook playbooks/"$playbook".yml

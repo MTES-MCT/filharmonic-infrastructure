@@ -1,0 +1,8 @@
+- hosts: server
+  tasks:
+    - name: "Update and restart Fil'Harmonic services"
+      shell: |
+        cd "/srv/config/filharmonic"
+        docker-compose pull
+        docker-compose stop
+        docker-compose up -d

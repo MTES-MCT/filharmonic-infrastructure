@@ -8,10 +8,30 @@ jobs:
       - checkout
       - run:
           name: Deploy
-          command: ./deploy.sh
+          command: ./run.sh deploy
+
+  update-filharmonic:
+    docker:
+      - image: willhallonline/ansible:2.7-alpine
+    steps:
+      - run:
+          name: "Update Fil'Harmonic"
+          command: ./run.sh update-filharmonic
 
 workflows:
   deploy:
     jobs:
       - deploy:
+          requires: []
+
+  update-filharmonic:
+    triggers:
+      - schedule:
+          cron: "0 4 * * *" # Daily at 04:00
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - update-filharmonic:
           requires: []
