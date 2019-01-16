@@ -15,6 +15,35 @@ services:
       - "traefik.frontend.rule=Host:filharmonic.beta.gouv.fr"
       - "traefik.docker.network=web"
 
+  api:
+    image: betagouv/filharmonic-api:latest
+    restart: unless-stopped
+    depends_on:
+      - postgresql
+    environment:
+      - "FILHARMONIC_DATABASE_HOST=postgresql"
+      - "FILHARMONIC_DATABASE_PASSWORD=filharmonic_password"
+    networks:
+      - filharmonic
+    labels:
+      - "traefik.enable=true"
+      - "traefik.port=5000"
+      - "traefik.frontend.rule=Host:filharmonic.beta.gouv.fr"
+      - "traefik.frontend.rule=PathPrefixStrip:/api"
+      - "traefik.docker.network=web"
+
+  postgresql:
+    image: postgres:11.1-alpine
+    restart: unless-stopped
+    environment:
+      - "POSTGRES_USER=filharmonic"
+      - "POSTGRES_PASSWORD=filharmonic_password"
+      - "POSTGRES_DB=filharmonic"
+    volumes:
+      - /srv/data/filharmonic/postgresql:/var/lib/postgresql/data
+    networks:
+      - filharmonic
+
 networks:
   filharmonic:
   web:
