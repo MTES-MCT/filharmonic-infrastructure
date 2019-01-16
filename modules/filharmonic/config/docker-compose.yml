@@ -24,6 +24,7 @@ services:
       - "FILHARMONIC_DATABASE_HOST=postgresql"
       - "FILHARMONIC_DATABASE_PASSWORD=filharmonic_password"
     networks:
+      - web
       - filharmonic
     labels:
       - "traefik.enable=true"
