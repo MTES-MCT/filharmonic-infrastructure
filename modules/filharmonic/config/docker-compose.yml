@@ -29,8 +29,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.port=5000"
-      - "traefik.frontend.rule=Host:filharmonic.beta.gouv.fr"
-      - "traefik.frontend.rule=PathPrefixStrip:/api"
+      - "traefik.frontend.rule=Host:filharmonic.beta.gouv.fr; PathPrefixStrip:/api"
       - "traefik.docker.network=web"
 
   postgresql:
