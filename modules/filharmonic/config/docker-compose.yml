@@ -44,6 +44,18 @@ services:
     networks:
       - filharmonic
 
+  cas:
+    image: tristanrobert/cas:latest
+    restart: unless-stopped
+    networks:
+      - web
+      - filharmonic
+    labels:
+      - "traefik.enable=true"
+      - "traefik.port=8080"
+      - "traefik.frontend.rule=Host:cas.filharmonic.beta.gouv.fr"
+      - "traefik.docker.network=web"
+
 networks:
   filharmonic:
   web:
