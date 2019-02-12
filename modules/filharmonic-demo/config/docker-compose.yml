@@ -1,0 +1,19 @@
+version: '3.5'
+
+services:
+  ui:
+    image: betagouv/filharmonic-ui:5e55c080d5bfee9e8c87ba72895f9d37a8055d37 # 14 janvier 2019
+    restart: unless-stopped
+    networks:
+      - web
+      - filharmonic
+    labels:
+      - "traefik.enable=true"
+      - "traefik.port=5000"
+      - "traefik.frontend.rule=Host:demo.filharmonic.beta.gouv.fr"
+      - "traefik.docker.network=web"
+
+networks:
+  filharmonic:
+  web:
+    external: true
