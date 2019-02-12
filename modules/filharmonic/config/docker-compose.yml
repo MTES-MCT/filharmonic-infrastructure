@@ -20,9 +20,11 @@ services:
     restart: unless-stopped
     depends_on:
       - postgresql
+      - minio
     environment:
       - "FILHARMONIC_DATABASE_HOST=postgresql"
       - "FILHARMONIC_DATABASE_PASSWORD=filharmonic_password"
+      - "FILHARMONIC_STORAGE_ENDPOINT=minio:9000"
     networks:
       - web
       - filharmonic
@@ -44,17 +46,17 @@ services:
     networks:
       - filharmonic
 
-  cas:
-    image: tristanrobert/cas:latest
+  minio:
+    image: minio/minio:RELEASE.2019-01-23T23-18-58Z
     restart: unless-stopped
+    command: server /data
+    environment:
+      MINIO_ACCESS_KEY: filharmonic
+      MINIO_SECRET_KEY: filharmonic
+    volumes:
+      - /srv/data/filharmonic/minio:/data
     networks:
-      - web
       - filharmonic
-    labels:
-      - "traefik.enable=true"
-      - "traefik.port=8080"
-      - "traefik.frontend.rule=Host:cas.filharmonic.beta.gouv.fr"
-      - "traefik.docker.network=web"
 
 networks:
   filharmonic:
