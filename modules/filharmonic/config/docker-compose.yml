@@ -25,6 +25,8 @@ services:
       - "FILHARMONIC_DATABASE_HOST=postgresql"
       - "FILHARMONIC_DATABASE_PASSWORD=filharmonic_password"
       - "FILHARMONIC_STORAGE_ENDPOINT=minio:9000"
+      - "FILHARMONIC_REDIS_ADDR=redis:6379"
+      - "FILHARMONIC_REDIS_PASSWORD=filharmonic"
     networks:
       - web
       - filharmonic
@@ -57,6 +59,16 @@ services:
       - /srv/data/filharmonic/minio:/data
     networks:
       - filharmonic
+
+  redis:
+    image: bitnami/redis:5.0.3
+    restart: unless-stopped
+    ports:
+      - 6379:6379
+    volumes:
+      - /srv/data/filharmonic/redis:/bitnami/redis
+    environment:
+      REDIS_PASSWORD: filharmonic
 
 networks:
   filharmonic:
