@@ -63,10 +63,12 @@ services:
   redis:
     image: bitnami/redis:5.0.3
     restart: unless-stopped
-    volumes:
-      - /srv/data/filharmonic/redis:/bitnami/redis
     environment:
       REDIS_PASSWORD: filharmonic
+    volumes:
+      - /srv/data/filharmonic/redis:/bitnami/redis
+    networks:
+      - filharmonic
 
 networks:
   filharmonic:
