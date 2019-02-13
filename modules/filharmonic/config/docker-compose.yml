@@ -21,6 +21,7 @@ services:
     depends_on:
       - postgresql
       - minio
+      - redis
     environment:
       - "FILHARMONIC_DATABASE_HOST=postgresql"
       - "FILHARMONIC_DATABASE_PASSWORD=filharmonic_password"
