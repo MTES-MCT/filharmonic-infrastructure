@@ -27,3 +27,18 @@ Dans CircleCI :
 - Ajouter les variables d'environnement (via Settings > Environment Variables) :
   - SERVER_FINGERPRINT
   - SSH_PRIVATE_KEY_BASE64
+
+
+## Exécution de commandes one-shot
+
+Il arrive parfois de devoir faire des actions une seule fois, comme une migration ou un import de données.
+Il n'y a rien de prévu pour ces cas-là, et il faut alors effectuer l'action manuellement en se connectant en SSH car aucun service n'est directement exposé sur internet.
+
+
+### Exemple d'import de la base de données S3IC
+
+```sh
+scp s3ic_ic_gen_fabnum.csv root@filharmonic.beta.gouv.fr:/tmp/
+ssh root@filharmonic.beta.gouv.fr docker-compose -f /srv/config/filharmonic/docker-compose.yml run --rm -v "/tmp/s3ic_ic_gen_fabnum.csv:/data.csv:ro" api filharmonic-api -import-etablissements /data.csv
+ssh root@filharmonic.beta.gouv.fr rm -f /tmp/s3ic_ic_gen_fabnum.csv
+```
