@@ -35,10 +35,26 @@ Il arrive parfois de devoir faire des actions une seule fois, comme une migratio
 Il n'y a rien de prévu pour ces cas-là, et il faut alors effectuer l'action manuellement en se connectant en SSH car aucun service n'est directement exposé sur internet.
 
 
-### Exemple d'import de la base de données S3IC
+### Import de la base de données S3IC
 
 ```sh
 scp s3ic_ic_gen_fabnum.csv root@filharmonic.beta.gouv.fr:/tmp/
 ssh root@filharmonic.beta.gouv.fr docker-compose -f /srv/config/filharmonic/docker-compose.yml run --rm -v "/tmp/s3ic_ic_gen_fabnum.csv:/data.csv:ro" api filharmonic-api -import-etablissements /data.csv
 ssh root@filharmonic.beta.gouv.fr rm -f /tmp/s3ic_ic_gen_fabnum.csv
+```
+
+
+### Import des utilisateurs inspecteurs
+
+Conversion temporaire, en attendant d'avoir un CSV propre (besoin des paquets iconv et csvtool) :
+```sh
+iconv -f ISO-8859-1 -t UTF-8 Liste_d_agents.csv >! inspecteurs_tab.csv
+csvtool -t TAB -u \; cat inspecteurs_tab.csv >! inspecteurs.csv
+go run main.go -import-inspecteurs inspecteurs.csv
+```
+
+```sh
+scp inspecteurs.csv root@filharmonic.beta.gouv.fr:/tmp/
+ssh root@filharmonic.beta.gouv.fr docker-compose -f /srv/config/filharmonic/docker-compose.yml run --rm -v "/tmp/inspecteurs.csv:/data.csv:ro" api filharmonic-api -import-inspecteurs /data.csv
+ssh root@filharmonic.beta.gouv.fr rm -f /tmp/inspecteurs.csv
 ```
