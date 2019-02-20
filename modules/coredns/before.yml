@@ -1,0 +1,5 @@
+- name: "CoreDNS: stop bind9 service"
+  systemd:
+    name: bind9.service
+    state: stopped
+    masked: yes

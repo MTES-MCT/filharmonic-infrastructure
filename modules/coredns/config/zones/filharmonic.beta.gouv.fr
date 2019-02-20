@@ -1,0 +1,23 @@
+$ORIGIN filharmonic.beta.gouv.fr.
+$TTL    900
+@ IN SOA ns1 admin (
+    2019022001 ; serial
+    7200       ; refresh (2 hours)
+    3600       ; retry (1 hour)
+    1209600    ; expire (2 weeks)
+    3600       ; minimum (1 hour)
+    )
+  IN NS ns1
+  IN A 62.210.151.169
+
+; subdomains
+* IN A 62.210.151.169
+
+; ovh emails
+@ IN MX 1 redirect.ovh.net.
+contact.at IN TXT maxime.dreau@beta.gouv.fr
+contact.at IN TXT tristan.robert@beta.gouv.fr
+
+; mailjet
+@ IN TXT "v=spf1 include:spf.mailjet.com ?all"
+mailjet._domainkey IN TXT "k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDNjVLP/TAifC+WIWAJfjBJPsIRjJZkePL3YeQZvYNM70fqnQRXgTeLDMZMauZMK7+4fkhWAtu1ssdUi78OMMlKI2XTeb1NbltVLFOqn8DjxoO6hjk3EkA/HQF4Z9NuwCl9gQ+K7mzOk/fqPuTAiaWl8Sv3xBXI1kasMlYHg4vC/QIDAQAB"

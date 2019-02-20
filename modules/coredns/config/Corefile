@@ -1,0 +1,6 @@
+filharmonic.beta.gouv.fr {
+    file /zones/filharmonic.beta.gouv.fr
+    prometheus     # enable metrics
+    errors         # show errors
+    log            # enable query logs
+}
