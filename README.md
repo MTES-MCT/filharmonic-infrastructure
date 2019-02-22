@@ -27,6 +27,8 @@ Dans CircleCI :
 - Ajouter les variables d'environnement (via Settings > Environment Variables) :
   - SERVER_FINGERPRINT
   - SSH_PRIVATE_KEY_BASE64
+  - CIENV_FILHARMONIC_API_FILHARMONIC_EMAILS_APIPUBLICKEY
+  - CIENV_FILHARMONIC_API_FILHARMONIC_EMAILS_APIPRIVATEKEY
 
 
 ## Exécution de commandes one-shot
