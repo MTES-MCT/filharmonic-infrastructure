@@ -58,3 +58,11 @@ scp inspecteurs.csv root@filharmonic.beta.gouv.fr:/tmp/
 ssh root@filharmonic.beta.gouv.fr docker-compose -f /srv/config/filharmonic/docker-compose.yml run --rm -v "/tmp/inspecteurs.csv:/data.csv:ro" api filharmonic-api -import-inspecteurs /data.csv
 ssh root@filharmonic.beta.gouv.fr rm -f /tmp/inspecteurs.csv
 ```
+
+### Import des utilisateurs exploitants
+
+```sh
+scp exploitants.csv root@filharmonic.beta.gouv.fr:/tmp/
+ssh root@filharmonic.beta.gouv.fr docker-compose -f /srv/config/filharmonic/docker-compose.yml run --rm -v "/tmp/exploitants.csv:/data.csv:ro" api filharmonic-api -import-exploitants /data.csv
+ssh root@filharmonic.beta.gouv.fr rm -f /tmp/exploitants.csv
+```
