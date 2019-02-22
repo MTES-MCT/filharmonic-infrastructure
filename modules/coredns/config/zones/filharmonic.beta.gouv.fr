@@ -17,6 +17,8 @@ $TTL    900
 @ IN MX 1 redirect.ovh.net.
 contact.at IN TXT maxime.dreau@beta.gouv.fr
 contact.at IN TXT tristan.robert@beta.gouv.fr
+admin.at IN TXT maxime.dreau@beta.gouv.fr
+admin.at IN TXT tristan.robert@beta.gouv.fr
 
 ; mailjet
 @ IN TXT "v=spf1 include:spf.mailjet.com ?all"
