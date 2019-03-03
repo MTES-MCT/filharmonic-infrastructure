@@ -20,8 +20,8 @@ Dans CircleCI :
   - SSH_HOST
   - SSH_FINGERPRINT
   - SSH_PRIVATE_KEY_BASE64
-  - cd_filharmonic_api.env__FILHARMONIC_EMAILS_APIPUBLICKEY
-  - cd_filharmonic_api.env__FILHARMONIC_EMAILS_APIPRIVATEKEY
+  - cd_filharmonic_api_FILHARMONIC_EMAILS_APIPUBLICKEY
+  - cd_filharmonic_api_FILHARMONIC_EMAILS_APIPRIVATEKEY
 
 
 ## Exécution de commandes one-shot
