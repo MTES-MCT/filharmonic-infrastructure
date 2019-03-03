@@ -1,29 +1,35 @@
-version: 2.1
+version: 2
 
 jobs:
   deploy:
     docker:
-      - image: willhallonline/ansible:2.7-alpine
+      - image: totakoko/compose-deploy
     steps:
       - checkout
       - run:
-          name: Deploy
-          command: ./run.sh deploy
+          command: compose-deploy deploy
+          environment:
+            MODULES_ROOT: /root/project
 
   update-filharmonic:
     docker:
-      - image: willhallonline/ansible:2.7-alpine
+      - image: totakoko/compose-deploy
     steps:
       - checkout
       - run:
           name: "Update Fil'Harmonic"
-          command: ./run.sh update-filharmonic
+          command: compose-deploy update-module filharmonic
 
 workflows:
+  version: 2
   deploy:
     jobs:
       - deploy:
           requires: []
+          filters:
+            branches:
+              only:
+                - master
 
   update-filharmonic:
     triggers:
