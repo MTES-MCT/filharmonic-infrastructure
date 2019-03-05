@@ -20,6 +20,7 @@ endpoint = "unix:///var/run/docker.sock"
 domain = "filharmonic.beta.gouv.fr"
 watch = true
 exposedbydefault = false
+network = "web"
 
 [acme]
 email = "maxime@dreau.fr"

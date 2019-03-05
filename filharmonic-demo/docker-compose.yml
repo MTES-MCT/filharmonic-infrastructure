@@ -11,7 +11,6 @@ services:
       - "traefik.enable=true"
       - "traefik.port=5000"
       - "traefik.frontend.rule=Host:demo.filharmonic.beta.gouv.fr"
-      - "traefik.docker.network=web"
 
 networks:
   filharmonic:

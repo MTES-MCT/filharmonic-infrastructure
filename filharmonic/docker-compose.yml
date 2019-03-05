@@ -13,7 +13,6 @@ services:
       - "traefik.enable=true"
       - "traefik.port=5000"
       - "traefik.frontend.rule=Host:filharmonic.beta.gouv.fr"
-      - "traefik.docker.network=web"
 
   api:
     image: betagouv/filharmonic-api:latest
@@ -37,7 +36,6 @@ services:
       - "traefik.enable=true"
       - "traefik.port=5000"
       - "traefik.frontend.rule=Host:filharmonic.beta.gouv.fr; PathPrefixStrip:/api"
-      - "traefik.docker.network=web"
 
   postgresql:
     image: postgres:11.1-alpine
