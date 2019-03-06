@@ -1,0 +1,4 @@
+- name: "Mail: uninstall exim4"
+  apt:
+    package: exim4
+    state: absent

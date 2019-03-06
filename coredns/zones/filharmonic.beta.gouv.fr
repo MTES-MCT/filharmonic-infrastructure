@@ -13,6 +13,17 @@ $TTL    900
 ; subdomains
 * IN A 62.210.151.169
 
+; emails
+mail IN A 62.210.151.169
+spam IN CNAME @
+postfixadmin IN CNAME @
+@ IN MX 10 @
+@ IN TXT "v=spf1 a mx include:spf.mailjet.com ~all"
+mail._domainkey IN TXT ( "v=DKIM1; k=rsa; "
+        "p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxa/Ba+9CQS2v+cPwMOAcn+Z2GjsW7ke+BXKnvPedQcd20MS15OVQsbDb3GlUq1zXMZJ/kGmGGdvGNRtteA0U47WgxTmr1o4yPDDQA9Nwb0S770LmDWAomPbBvntunfrX0nsr49S2SUY/MnoPJ+UNKGEkZwKKAaTHxGmTXDB1JiyyQYx/PyYTs9yzIzXWm2jBUmQnDt3cspkxS6NUu"
+        "s2dqToyLaGJcR06lgRXmScRrcBQKEYuPcbr2VcPuXGlKxbWxDUxF+YyTXsmdcYInPGrTMRFspSCpI5JcQnN/gQ0qCsjPAuDlOgnhqN/Lxfgh7sGQesSjy97B9XuzWz1dNI5fQIDAQAB"
+)
+_dmarc IN TXT "v=DMARC1; p=reject; rua=mailto:postmaster@filharmonic.beta.gouv.fr; ruf=mailto:admin@filharmonic.beta.gouv.fr; fo=0; adkim=s; aspf=s; pct=100; rf=afrf; sp=reject"
+
 ; mailjet
-@ IN TXT "v=spf1 include:spf.mailjet.com ?all"
 mailjet._domainkey IN TXT "k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDNjVLP/TAifC+WIWAJfjBJPsIRjJZkePL3YeQZvYNM70fqnQRXgTeLDMZMauZMK7+4fkhWAtu1ssdUi78OMMlKI2XTeb1NbltVLFOqn8DjxoO6hjk3EkA/HQF4Z9NuwCl9gQ+K7mzOk/fqPuTAiaWl8Sv3xBXI1kasMlYHg4vC/QIDAQAB"

@@ -9,6 +9,7 @@ Elle se base sur [compose-deploy](https://github.com/totakoko/compose-deploy).
 - coredns : dns ayant autorité sur la zone filharmonic.beta.gouv.fr
 - filharmonic : contient la stack Fil'Harmonic : [UI](https://github.com/MTES-MCT/filharmonic-ui), [API](https://github.com/MTES-MCT/filharmonic-api), bases de données
 - filharmonic-demo : UI mockée ayant servi au début du projet
+- mail : serveur mail qui gère les emails du domaine filharmonic.beta.gouv.fr
 - traefik : reverse proxy et TLS automatique avec Let's Encrypt
 
 
@@ -18,10 +19,14 @@ Dans CircleCI :
 - Créer le projet filharmonic-infrastructure
 - Ajouter les variables d'environnement (via Settings > Environment Variables) :
   - SSH_HOST
-  - SSH_FINGERPRINT
+  - SSH_FINGERPRINT_BASE64
   - SSH_PRIVATE_KEY_BASE64
   - cd_filharmonic_api_FILHARMONIC_EMAILS_APIPUBLICKEY
   - cd_filharmonic_api_FILHARMONIC_EMAILS_APIPRIVATEKEY
+  - cd_mail_mailserver_DBPASS
+  - cd_mail_mailserver_RSPAMD_PASSWORD
+  - cd_mail_postfixadmin_DBPASS
+  - cd_mail_postgres_POSTGRES_PASSWORD
 
 
 ## Exécution de commandes one-shot

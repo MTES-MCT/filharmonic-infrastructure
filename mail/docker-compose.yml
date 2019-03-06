@@ -1,0 +1,85 @@
+version: "3"
+
+networks:
+  web:
+    external: true
+  mail:
+
+services:
+
+  mailserver:
+    image: hardware/mailserver:1.1-stable
+    restart: unless-stopped
+    domainname: filharmonic.beta.gouv.fr
+    hostname: mail
+    ports:
+      - "25:25"       # SMTP                - Required
+      # - "110:110"     # POP3       STARTTLS - Optional - For webmails/desktop clients
+      # - "143:143"     # IMAP       STARTTLS - Optional - For webmails/desktop clients
+      # - "465:465"     # SMTPS      SSL/TLS  - Optional - Enabled for compatibility reason, otherwise disabled
+      # - "587:587"     # Submission STARTTLS - Optional - For webmails/desktop clients
+      # - "993:993"     # IMAPS      SSL/TLS  - Optional - For webmails/desktop clients
+      # - "995:995"     # POP3S      SSL/TLS  - Optional - For webmails/desktop clients
+      - "4190:4190"   # SIEVE      STARTTLS - Optional - Recommended for mail filtering
+    env_file: mailserver.env
+    environment:
+      - DBDRIVER=pgsql
+      - DBHOST=postgres
+      - DBPORT=5432
+      - DISABLE_DNS_RESOLVER=true
+      - OPENDKIM_KEY_LENGTH=2048
+    volumes:
+      - /srv/data/mail/mailserver:/var/mail
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - mail
+      - web
+    labels:
+      - traefik.enable=true
+      - traefik.frontend.rule=Host:spam.filharmonic.beta.gouv.fr
+      - traefik.port=11334
+
+  postfixadmin:
+    image: hardware/postfixadmin
+    restart: unless-stopped
+    domainname: filharmonic.beta.gouv.fr
+    hostname: mail
+    env_file: postfixadmin.env
+    environment:
+      - DBDRIVER=pgsql
+      - DBHOST=postgres
+      - DBPORT=5432
+    depends_on:
+      - mailserver
+      - postgres
+    networks:
+      - mail
+      - web
+    labels:
+      - traefik.enable=true
+      - traefik.frontend.rule=Host:postfixadmin.filharmonic.beta.gouv.fr
+      - traefik.port=8888
+
+  postgres:
+    image: postgres:10.5-alpine
+    restart: unless-stopped
+    stop_signal: SIGINT                 # Fast Shutdown mode
+    env_file: postgres.env
+    environment:
+      - POSTGRES_DB=postfix
+      - POSTGRES_USER=postfix
+    volumes:
+      - /srv/data/mail/postgres:/var/lib/postgresql/data
+    networks:
+      - mail
+
+  redis:
+    image: redis:4.0-alpine
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    volumes:
+      - /srv/data/mail/redis:/data
+    networks:
+      - mail
