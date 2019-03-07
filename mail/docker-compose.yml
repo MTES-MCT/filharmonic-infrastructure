@@ -31,6 +31,7 @@ services:
       - OPENDKIM_KEY_LENGTH=2048
     volumes:
       - /srv/data/mail/mailserver:/var/mail
+      - /srv/data/traefik/acme.json:/etc/letsencrypt/acme/acme.json:ro
     depends_on:
       - postgres
       - redis
