@@ -12,6 +12,7 @@ services:
     restart: unless-stopped
     domainname: filharmonic.beta.gouv.fr
     hostname: mail
+    dns: 1.1.1.1 # Cloudfare DNS is not banned by dnswl.org
     ports:
       - "25:25"       # SMTP                - Required
       # - "110:110"     # POP3       STARTTLS - Optional - For webmails/desktop clients
