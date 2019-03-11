@@ -25,6 +25,8 @@ mail._domainkey IN TXT ( "v=DKIM1; k=rsa; "
 )
 _dmarc IN TXT "v=DMARC1; p=reject; rua=mailto:postmaster@filharmonic.beta.gouv.fr; ruf=mailto:admin@filharmonic.beta.gouv.fr; fo=0; adkim=s; aspf=s; pct=100; rf=afrf; sp=reject"
 @ IN CAA 0 issue "letsencrypt.org"
+_mta-sts IN TXT "v=STSv1; id=2019030622"
+_smtp._tls IN TXT "v=TLSRPTv1; rua=mailto:postmaster@filharmonic.beta.gouv.fr"
 
 ; mailjet
 mailjet._domainkey IN TXT "k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDNjVLP/TAifC+WIWAJfjBJPsIRjJZkePL3YeQZvYNM70fqnQRXgTeLDMZMauZMK7+4fkhWAtu1ssdUi78OMMlKI2XTeb1NbltVLFOqn8DjxoO6hjk3EkA/HQF4Z9NuwCl9gQ+K7mzOk/fqPuTAiaWl8Sv3xBXI1kasMlYHg4vC/QIDAQAB"

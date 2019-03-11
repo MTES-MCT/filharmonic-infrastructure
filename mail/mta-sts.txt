@@ -1,0 +1,5 @@
+version: STSv1
+mode: enforce
+mx: mail.filharmonic.beta.gouv.fr
+mx: *.mailjet.com
+max_age: 604800

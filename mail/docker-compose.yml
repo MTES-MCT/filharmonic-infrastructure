@@ -85,3 +85,15 @@ services:
       - /srv/data/mail/redis:/data
     networks:
       - mail
+
+  nginx-mta-sts:
+    image: nginx:alpine
+    restart: unless-stopped
+    volumes:
+      - ./mta-sts.txt:/usr/share/nginx/html/.well-known/mta-sts.txt:ro
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.port=80"
+      - "traefik.frontend.rule=Host:mta-sts.filharmonic.beta.gouv.fr"
