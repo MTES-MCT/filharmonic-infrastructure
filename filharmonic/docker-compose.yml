@@ -13,6 +13,9 @@ services:
       - "traefik.enable=true"
       - "traefik.port=5000"
       - "traefik.frontend.rule=Host:filharmonic.beta.gouv.fr"
+      - "traefik.frontend.headers.STSSeconds=31536000"
+      - "traefik.frontend.headers.STSIncludeSubdomains=true"
+      - "traefik.frontend.headers.STSPreload=true"
 
   api:
     image: betagouv/filharmonic-api:latest
