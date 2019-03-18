@@ -21,8 +21,7 @@ Dans CircleCI :
   - SSH_HOST
   - SSH_FINGERPRINT_BASE64
   - SSH_PRIVATE_KEY_BASE64
-  - cd_filharmonic_api_FILHARMONIC_EMAILS_APIPUBLICKEY
-  - cd_filharmonic_api_FILHARMONIC_EMAILS_APIPRIVATEKEY
+  - cd_filharmonic_api_FILHARMONIC_EMAILS_SMTPPASS
   - cd_mail_mailserver_DBPASS
   - cd_mail_mailserver_RSPAMD_PASSWORD
   - cd_mail_postfixadmin_DBPASS

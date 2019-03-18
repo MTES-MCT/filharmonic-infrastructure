@@ -30,6 +30,10 @@ services:
       - "FILHARMONIC_STORAGE_ENDPOINT=minio:9000"
       - "FILHARMONIC_REDIS_ADDR=redis:6379"
       - "FILHARMONIC_REDIS_PASSWORD=filharmonic"
+      - "FILHARMONIC_ENABLESMTP=true"
+      - "FILHARMONIC_EMAILS_SMTPHOST=mail.filharmonic.beta.gouv.fr"
+      - "FILHARMONIC_EMAILS_SMTPPORT=25"
+      - "FILHARMONIC_EMAILS_SMTPUSER=noreply@filharmonic.beta.gouv.fr"
     env_file:
       - api.env
     networks:
