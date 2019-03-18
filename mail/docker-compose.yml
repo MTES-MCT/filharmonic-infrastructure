@@ -40,7 +40,7 @@ services:
       - web
     labels:
       - traefik.enable=true
-      - traefik.frontend.rule=Host:spam.filharmonic.beta.gouv.fr
+      - traefik.frontend.rule=Host:spam.filharmonic.beta.gouv.fr,mail.filharmonic.beta.gouv.fr
       - traefik.port=11334
 
   postfixadmin:
