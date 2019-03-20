@@ -11,6 +11,7 @@ Elle se base sur [compose-deploy](https://github.com/totakoko/compose-deploy).
 - filharmonic-demo : UI mockée ayant servi au début du projet
 - mail : serveur mail qui gère les emails du domaine filharmonic.beta.gouv.fr
 - traefik : reverse proxy et TLS automatique avec Let's Encrypt
+- restic : sauvegardes quotidiennes des données de tous les services
 
 
 ## Configuration CircleCI
@@ -26,6 +27,7 @@ Dans CircleCI :
   - cd_mail_mailserver_RSPAMD_PASSWORD
   - cd_mail_postfixadmin_DBPASS
   - cd_mail_postgres_POSTGRES_PASSWORD
+  - cd_restic_restic_RESTIC_PASSWORD
 
 
 ## Exécution de commandes one-shot

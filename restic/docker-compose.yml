@@ -1,0 +1,14 @@
+version: '3.5'
+
+services:
+  restic:
+    build: .
+    hostname: filharmonic.beta.gouv.fr # used by restic
+    environment:
+      BACKUP_CRON: "0 30 3 * * *"
+      RESTIC_BACKUP_TAGS: srv
+      RESTIC_FORGET_ARGS: --prune --keep-last 5 --keep-daily 8 --keep-weekly 8 --keep-monthly 12
+    env_file: restic.env
+    volumes:
+      - /backup:/mnt/restic # repository location
+      - /srv:/data:ro # backup sources
