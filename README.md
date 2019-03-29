@@ -70,11 +70,11 @@ ssh root@filharmonic.beta.gouv.fr rm -f /tmp/exploitants.csv
 
 ### Génération des statistiques
 
+Récupérer `filharmonic-api/database/stats/stats.sql`
+
 ```sh
-ssh root@filharmonic.beta.gouv.fr docker-compose -f /srv/config/filharmonic/docker-compose.yml run postgresql psql -U filharmonic -c "COPY ( select inspection.etablissement_id, point_de_controle.id as point_de_controle_id, constat.type as constat_type
-from inspections as inspection
-join point_de_controles as point_de_controle on point_de_controle.inspection_id = inspection.id
-left join constats as constat on point_de_controle.constat_id = constat.id ) TO STDOUT WITH CSV HEADER" > /tmp/stats.csv
+ssh root@filharmonic.beta.gouv.fr
+docker-compose -f /srv/config/filharmonic/docker-compose.yml exec postgresql psql -U filharmonic -c -f stats.sql > /tmp/stats.csv
 scp root@filharmonic.beta.gouv.fr:/tmp/stats.csv ~/
 ssh root@filharmonic.beta.gouv.fr rm -f /tmp/stats.csv
 ```
