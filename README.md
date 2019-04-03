@@ -36,6 +36,15 @@ Il arrive parfois de devoir faire des actions une seule fois, comme une migratio
 Il n'y a rien de prévu pour ces cas-là, et il faut alors effectuer l'action manuellement en se connectant en SSH car aucun service n'est directement exposé sur internet.
 
 
+### Import des départements
+
+Récupérer le [fichier d'import des départements](https://github.com/MTES-MCT/filharmonic-api/blob/master/database/scripts/data/import_departements.sql).
+
+```sh
+ssh root@filharmonic.beta.gouv.fr 'docker-compose -f /srv/config/filharmonic/docker-compose.yml exec -T postgresql psql -U filharmonic' < import_departements.sql
+```
+
+
 ### Import de la base de données S3IC
 
 ```sh
