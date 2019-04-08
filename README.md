@@ -82,8 +82,6 @@ ssh root@filharmonic.beta.gouv.fr rm -f /tmp/exploitants.csv
 Récupérer `filharmonic-api/database/stats/stats.sql`
 
 ```sh
-ssh root@filharmonic.beta.gouv.fr
-docker-compose -f /srv/config/filharmonic/docker-compose.yml exec postgresql psql -U filharmonic -c -f stats.sql > /tmp/stats.csv
-scp root@filharmonic.beta.gouv.fr:/tmp/stats.csv ~/
-ssh root@filharmonic.beta.gouv.fr rm -f /tmp/stats.csv
+ssh root@filharmonic.beta.gouv.fr 'docker-compose -f /srv/config/filharmonic/docker-compose.yml exec -T postgresql
+ psql -U filharmonic' < database/stats/stats.sql > stats.csv
 ```
