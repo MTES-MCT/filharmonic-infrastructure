@@ -31,14 +31,14 @@ workflows:
               only:
                 - master
 
-  update-filharmonic:
-    triggers:
-      - schedule:
-          cron: "0 4 * * *" # Daily at 04:00
-          filters:
-            branches:
-              only:
-                - master
-    jobs:
-      - update-filharmonic:
-          requires: []
+  # update-filharmonic:
+  #   triggers:
+  #     - schedule:
+  #         cron: "0 4 * * *" # Daily at 04:00
+  #         filters:
+  #           branches:
+  #             only:
+  #               - master
+  #   jobs:
+  #     - update-filharmonic:
+  #         requires: []
